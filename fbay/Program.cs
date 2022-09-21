@@ -1,4 +1,5 @@
 using fbay.Data;
+using fbay.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("name=ConnectionStrings:Default"));
+
+builder.Services.AddScoped<IUserRepo, UserRepo>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

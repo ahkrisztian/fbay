@@ -11,7 +11,7 @@ namespace fbay.Models
         public string LastName { get; set; }
         [Required]
         public string EmailAddress { get; set; }   
-        DateTime UserCreatedOn  { get; set; }
+        DateTime UserCreatedOn  { get; set; } = DateTime.UtcNow;
 
         public List<Address> Addresses { get; set; } = new List<Address>();
 
