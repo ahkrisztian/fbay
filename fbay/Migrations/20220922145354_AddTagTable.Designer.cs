@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fbay.Data;
 
@@ -11,9 +12,10 @@ using fbay.Data;
 namespace fbay.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220922145354_AddTagTable")]
+    partial class AddTagTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,37 +54,6 @@ namespace fbay.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("fbay.Models.AddressToTake", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AddressLine1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AdvertisementId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdvertisementId")
-                        .IsUnique();
-
-                    b.ToTable("AddressToTake");
-                });
-
             modelBuilder.Entity("fbay.Models.Advertisement", b =>
                 {
                     b.Property<int>("Id")
@@ -90,6 +61,10 @@ namespace fbay.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AddressToTakeOver")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
@@ -206,15 +181,6 @@ namespace fbay.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("fbay.Models.AddressToTake", b =>
-                {
-                    b.HasOne("fbay.Models.Advertisement", null)
-                        .WithOne("AddressToTakeOver")
-                        .HasForeignKey("fbay.Models.AddressToTake", "AdvertisementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("fbay.Models.Advertisement", b =>
                 {
                     b.HasOne("fbay.Models.User", null)
@@ -244,9 +210,6 @@ namespace fbay.Migrations
 
             modelBuilder.Entity("fbay.Models.Advertisement", b =>
                 {
-                    b.Navigation("AddressToTakeOver")
-                        .IsRequired();
-
                     b.Navigation("ImageUrls");
 
                     b.Navigation("keywords");

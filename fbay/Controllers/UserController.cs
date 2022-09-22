@@ -4,6 +4,7 @@ using fbay.Models;
 using fbay.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace fbay.Controllers
 {
@@ -20,6 +21,8 @@ namespace fbay.Controllers
             _mapper = mapper;
         }
 
+        //Search User by Id --> JSON Body User-User Addresses and User Advertisements
+
         [HttpGet("{id}", Name = "GetUsererById")]
         public async Task<ActionResult<User>> GetUsererById(int id)
         {
@@ -34,6 +37,7 @@ namespace fbay.Controllers
             return Ok(user);
         }
 
+        //Retruns all Users and Map to ReadUserDTO
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
@@ -45,7 +49,7 @@ namespace fbay.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(_mapper.Map<IEnumerable<ReadUserDTO>>(user));
         }
 
         [HttpDelete("{id}")]
@@ -64,6 +68,9 @@ namespace fbay.Controllers
             return NoContent();
         }
 
+
+        //Create a User from a Update DTO. Update DTO Map to User Object to create a User in Database.
+        //Map the created User to User DTO and return a User by ID
         [HttpPost]
         public async Task<ActionResult> CreateUser(UpdateUserDTO usercreateDTO)
         {
@@ -77,6 +84,7 @@ namespace fbay.Controllers
                 new { Id = userReadDTO.Id }, userReadDTO);
         }
 
+        //Update User By Id.
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser(int id, UpdateUserDTO userupdateDTO)
         {
