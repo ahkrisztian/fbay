@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fbay.Models
 {
@@ -11,13 +13,16 @@ namespace fbay.Models
         public string Description { get; set; }
         [Required]
         public string AddressToTakeOver { get; set; }
-        DateTime DateCreated { get; set; }
-        DateTime DateUpdated { get; set; }
-        DateTime DateDeleted { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime? DateCreated { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime? DateUpdated { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime? DateDeleted { get; set; }
         public int UserId { get; set; }
 
-        List<string> keywords { get; set; } = new List<string>();
-        List<Image> ImageUrls { get; set; } = new List<Image>();
+        public string keywords { get; set; }
+        public List<Image> ImageUrls { get; set; } = new List<Image>();
 
 
     }

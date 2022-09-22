@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fbay.Models
 {
@@ -10,8 +12,13 @@ namespace fbay.Models
         [Required]
         public string LastName { get; set; }
         [Required]
-        public string EmailAddress { get; set; }   
-        DateTime UserCreatedOn  { get; set; } = DateTime.UtcNow;
+        public string EmailAddress { get; set; }
+
+        public string PassWord { get; set; }
+        public string PassWordHash { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime UserCreatedOn  { get; set; }
 
         public List<Address> Addresses { get; set; } = new List<Address>();
 
