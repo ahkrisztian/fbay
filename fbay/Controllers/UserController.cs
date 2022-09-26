@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using fbay.DTOs;
+using fbay.DTOs.UserDTOs;
 using fbay.Models;
 using fbay.Services;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +24,7 @@ namespace fbay.Controllers
         //Search User by Id --> JSON Body User-User Addresses and User Advertisements
 
         [HttpGet("{id}", Name = "GetUserById")]
-        public async Task<ActionResult<User>> GetUserById(int id)
+        public async Task<ActionResult<ReadUserDTO>> GetUserById(int id)
         {
 
             var user = await _userRepo.GetUserById(id);
@@ -34,12 +34,12 @@ namespace fbay.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(_mapper.Map<ReadUserDTO>(user));
         }
 
         //Retruns all Users and Map to ReadUserDTO
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<ReadUserDTO>>> GetAllUsers()
         {
 
             var user = await _userRepo.GetAllUsers();

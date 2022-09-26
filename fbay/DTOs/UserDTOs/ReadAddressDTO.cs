@@ -1,4 +1,4 @@
-﻿namespace fbay.DTOs
+﻿namespace fbay.DTOs.UserDTOs
 {
     public class ReadAddressDTO
     {

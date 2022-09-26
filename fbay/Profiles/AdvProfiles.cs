@@ -14,6 +14,8 @@ namespace fbay.Profiles
             CreateMap<ImageDTO, Image>();
             CreateMap<AddressToTakeDTO, AddressToTake>();    
             CreateMap<Advertisement, ReadAdvertisementDTO>();
+            CreateMap<Advertisement, UpdateAdvertisementDTO>();
+            CreateMap<UpdateAdvertisementDTO, Advertisement>();
         }
     }
 }

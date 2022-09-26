@@ -66,5 +66,22 @@ namespace fbay.Controllers
 
             return Ok(_mapper.Map<ReadAdvertisementDTO>(advsById));
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateAdvertisement(int id, UpdateAdvertisementDTO updateAdvertisementDTO)
+        {
+            var advFromRepo = await _advertisementRepo.GetAdvertisementById(id);
+
+            if (advFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(updateAdvertisementDTO, advFromRepo);
+
+            await _advertisementRepo.UpdateAdvertisement(advFromRepo);
+
+            return NoContent();
+        }
     }
 }

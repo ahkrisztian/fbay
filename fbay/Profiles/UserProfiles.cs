@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using fbay.DTOs;
+using fbay.DTOs.UserDTOs;
 using fbay.Models;
 using System;
 

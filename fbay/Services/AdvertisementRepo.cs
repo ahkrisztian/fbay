@@ -1,4 +1,5 @@
-﻿using fbay.Data;
+﻿using AutoMapper;
+using fbay.Data;
 using fbay.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,18 +29,32 @@ namespace fbay.Services
         }
 
 
-        public Task DeleteAdvertisement(Advertisement advertisement)
+        public async Task DeleteAdvertisement(Advertisement advertisement)
         {
-            throw new NotImplementedException();
+            if (advertisement == null)
+            {
+                throw new ArgumentNullException(nameof(advertisement));
+            }
+
+            _context.Advertisements.Remove(advertisement);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Advertisement> GetAdvertisementById(int id)
         {
-            return await _context.Advertisements
+            try
+            {
+                return await _context.Advertisements
                 .Include(address => address.addressToTakes)
                 .Include(img => img.ImageUrls)
                 .Include(keys => keys.keywords)
-                .Where(a => a.Id == id).FirstOrDefaultAsync();
+                .Where(adv => adv.Id == id).FirstOrDefaultAsync();
+            }
+            catch (Exception e )
+            {
+
+                throw new ArgumentNullException(nameof(e));
+            }
         }
 
         public Task<Advertisement> GetAdvertisementByKeyWords(int id, string size, string[] keywords)
@@ -49,16 +64,30 @@ namespace fbay.Services
 
         public async Task<IEnumerable<Advertisement>> GetAdvertisementByUserrId(int id)
         {
-            var advs = await _context.Users
+            try
+            {
+                var advs = await _context.Users
                 .Include(advs => advs.advertisements)
                 .Where(u => u.Id == id).FirstOrDefaultAsync();
 
-            return advs.advertisements;
+                if(advs == null)
+                {
+                    throw new ArgumentNullException(nameof(advs));
+                }
+
+                return advs.advertisements;
+            }
+            catch (Exception e)
+            {
+
+                throw new ArgumentNullException(nameof(e));
+            }
+           
         }
 
-        public Task UpdateAdvertisement(Advertisement advertisement)
+        public async Task UpdateAdvertisement(Advertisement advertisement)
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
     }
 }

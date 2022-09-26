@@ -1,7 +1,7 @@
 ﻿using fbay.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace fbay.DTOs
+namespace fbay.DTOs.UserDTOs
 {
     public class ReadUserDTO
     {
