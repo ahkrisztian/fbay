@@ -1,5 +1,6 @@
 ﻿using fbay.Data;
 using fbay.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace fbay.Services
 {
@@ -32,9 +33,13 @@ namespace fbay.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Advertisement>> GetAdvertisementByAdvertiser(User user)
+        public async Task<Advertisement> GetAdvertisementById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Advertisements
+                .Include(address => address.addressToTakes)
+                .Include(img => img.ImageUrls)
+                .Include(keys => keys.keywords)
+                .Where(a => a.Id == id).FirstOrDefaultAsync();
         }
 
         public Task<Advertisement> GetAdvertisementByKeyWords(int id, string size, string[] keywords)
@@ -42,9 +47,13 @@ namespace fbay.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Advertisement>> GetAdvertisementByUserrId(int id)
+        public async Task<IEnumerable<Advertisement>> GetAdvertisementByUserrId(int id)
         {
-            throw new NotImplementedException();
+            var advs = await _context.Users
+                .Include(advs => advs.advertisements)
+                .Where(u => u.Id == id).FirstOrDefaultAsync();
+
+            return advs.advertisements;
         }
 
         public Task UpdateAdvertisement(Advertisement advertisement)

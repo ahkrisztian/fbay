@@ -23,8 +23,8 @@ namespace fbay.Controllers
 
         //Search User by Id --> JSON Body User-User Addresses and User Advertisements
 
-        [HttpGet("{id}", Name = "GetUsererById")]
-        public async Task<ActionResult<User>> GetUsererById(int id)
+        [HttpGet("{id}", Name = "GetUserById")]
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
 
             var user = await _userRepo.GetUserById(id);
@@ -80,7 +80,7 @@ namespace fbay.Controllers
 
             var userReadDTO = _mapper.Map<ReadUserDTO>(user);
 
-            return CreatedAtRoute(nameof(GetUsererById),
+            return CreatedAtRoute(nameof(GetUserById),
                 new { Id = userReadDTO.Id }, userReadDTO);
         }
 

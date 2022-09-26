@@ -13,6 +13,7 @@ namespace fbay.Profiles
             CreateMap<TagDTO, Tag>();
             CreateMap<ImageDTO, Image>();
             CreateMap<AddressToTakeDTO, AddressToTake>();    
+            CreateMap<Advertisement, ReadAdvertisementDTO>();
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace fbay.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AdvertisementController : ControllerBase
     {
@@ -21,17 +21,50 @@ namespace fbay.Controllers
             _mapper = mapper;
         }
 
+        //Create advertisement and retrun AdvReadDTO
         [HttpPost]
-        public async Task<ActionResult> CreateUser(CreateAdvertisementDTO advcreateDTO)
+        public async Task<ActionResult> CreateAdvertisement(CreateAdvertisementDTO advcreateDTO)
         {
             var adv = _mapper.Map<Advertisement>(advcreateDTO);
 
             await _advertisementRepo.CreateAdvertisement(adv);
 
-            //var advReadDTO = _mapper.Map<ReadAdvertisementDTO>(adv);
+            var advReadDTO = _mapper.Map<ReadAdvertisementDTO>(adv);
 
-            return NoContent();
+            return CreatedAtRoute(nameof(GetAdvById),
+                new { Id = advReadDTO.Id }, advReadDTO);
+
+            //return Ok(advReadDTO);
+
         }
 
+
+        //Returns all advertisements from User
+        [HttpGet("{id}", Name = "GetAdvsByUserId")]
+        public async Task<ActionResult<IEnumerable<Advertisement>>> GetAdvsByUserId(int id)
+        {
+            var advsById= await _advertisementRepo.GetAdvertisementByUserrId(id);
+
+            if (advsById == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<IEnumerable<ReadAdvertisementDTO>>(advsById));
+        }
+
+        //Returns an advertisement by Id
+        [HttpGet("{id}", Name = "GetAdvById")]
+        public async Task<ActionResult> GetAdvById(int id)
+        {
+            var advsById = await _advertisementRepo.GetAdvertisementById(id);
+
+            if (advsById == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(_mapper.Map<ReadAdvertisementDTO>(advsById));
+        }
     }
 }

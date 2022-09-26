@@ -7,6 +7,7 @@ namespace fbay.DTOs.AdvertismentDTOs
 {
     public class ReadAdvertisementDTO
     {
+        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -19,5 +20,7 @@ namespace fbay.DTOs.AdvertismentDTOs
         public DateTime? DateUpdated { get; set; }
         public List<Tag> keywords { get; set; } = new List<Tag>();
         public List<Image> ImageUrls { get; set; } = new List<Image>();
+
+        public List<AddressToTake> addressToTakes { get; set; } = new List<AddressToTake>();
     }
 }
