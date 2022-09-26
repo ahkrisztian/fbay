@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using fbay.DTOs;
 using fbay.DTOs.AdvertismentDTOs;
+using fbay.DTOs.UserDTOs;
 using fbay.Models;
 
 namespace fbay.Profiles
@@ -16,6 +17,7 @@ namespace fbay.Profiles
             CreateMap<Advertisement, ReadAdvertisementDTO>();
             CreateMap<Advertisement, UpdateAdvertisementDTO>();
             CreateMap<UpdateAdvertisementDTO, Advertisement>();
+            
         }
     }
 }

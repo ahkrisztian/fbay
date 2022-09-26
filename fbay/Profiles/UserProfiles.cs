@@ -9,12 +9,12 @@ namespace fbay.Profiles
     {
         public UserProfiles()
         {
-            CreateMap<User, UpdateUserDTO>();
             CreateMap<UpdateUserDTO, User>();
             CreateMap<Address, UpdateAddressDTO>();
             CreateMap<UpdateAddressDTO, Address>();
             CreateMap<User, ReadUserDTO>();
             CreateMap<Address, ReadAddressDTO>();
+            CreateMap<CreateUserDTO, User>();
         }
     }
 }

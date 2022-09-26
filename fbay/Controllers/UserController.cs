@@ -72,7 +72,7 @@ namespace fbay.Controllers
         //Create a User from a Update DTO. Update DTO Map to User Object to create a User in Database.
         //Map the created User to User DTO and return a User by ID
         [HttpPost]
-        public async Task<ActionResult> CreateUser(UpdateUserDTO usercreateDTO)
+        public async Task<ActionResult> CreateUser(CreateUserDTO usercreateDTO)
         {
             var user = _mapper.Map<User>(usercreateDTO);
 
