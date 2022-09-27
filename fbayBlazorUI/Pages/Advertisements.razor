@@ -17,19 +17,39 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <a href="">
-                                    <img src="" />
+                                    @foreach(var img in adv.ImageUrls)
+                                    {
+                                        <img src=@img.Url />
+                                    }
                                 </a>
                                 <p class="my-2 text-jusitfy">
-                                    @adv.Description
+                                    <strong>Title:</strong> @adv.Title
+                                </p>
+                                <p class="my-2 text-jusitfy">
+                                    <strong>Description</strong> @adv.Description
+                                </p>
+                                <p class="my-2 text-jusitfy">
+                                    @foreach(var address in adv.addressToTakes)
+                                    {
+                                        <strong>Address:</strong>
+                                    <p>@address.AddressLine1 @address.City @address.ZipCode @address.Country</p>
+                                    }
                                 </p>
                                 <p class="mb-1">
-                                    <strong>Q: </strong>
+                                    <strong>Created on:</strong> @adv.DateCreated
                                 </p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <p class="h4 mb-3">Sample Item</p>
+                            <strong>Tags:</strong>
+                            <div class="d-flex flex-row">
+                                
+                                @foreach (var tag in adv.keywords)
+                                {
+                                    <div style="margin-right: 10px">
+                                        <p class="my-2 text-jusitfy">#@tag.Title</p>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
