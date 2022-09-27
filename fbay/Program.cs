@@ -11,6 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(policy =>
+{
+    policy.AddPolicy("OpenCorsPolicy", opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
+
+
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("name=ConnectionStrings:Default"));
 
 builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -28,6 +35,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("OpenCorsPolicy");
+
+app.UseRouting();
 
 app.UseAuthorization();
 

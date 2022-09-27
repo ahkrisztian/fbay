@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fbay", "fbay\fbay.csproj", "{9C8F8987-39B8-4FB2-81A8-47B2C6C45151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fbay", "fbay\fbay.csproj", "{9C8F8987-39B8-4FB2-81A8-47B2C6C45151}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fbayBlazorUI", "fbayBlazorUI\fbayBlazorUI.csproj", "{C955732B-7F8A-402E-99FF-1E2E408ECF61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9C8F8987-39B8-4FB2-81A8-47B2C6C45151}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C8F8987-39B8-4FB2-81A8-47B2C6C45151}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C8F8987-39B8-4FB2-81A8-47B2C6C45151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C955732B-7F8A-402E-99FF-1E2E408ECF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C955732B-7F8A-402E-99FF-1E2E408ECF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C955732B-7F8A-402E-99FF-1E2E408ECF61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C955732B-7F8A-402E-99FF-1E2E408ECF61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
