@@ -2,36 +2,40 @@
 
 <h3>Advertisements</h3>
 
-<div class="contain-fluid">
-    <div class="row">
-        @for(int i =0; i<7; i++)
-        {
-            <div class="col-xl-4 col-lg-6 mb-3">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <a href="">
-                                <img src=""/>
-                            </a>
-                            <p class="my-2 text-jusitfy">
-                                A placeholder
-                            </p>
-                            <p class="mb-1">
-                                <strong>Q: </strong>
-                            </p>
+@if (advertisements == null)
+{
+    <p>Loading</p>
+}
+else
+{
+    <div class="contain-fluid">
+        <div class="row">
+            @foreach (var adv in advertisements)
+            {
+                <div class="col-xl-4 col-lg-6 mb-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="">
+                                    <img src="" />
+                                </a>
+                                <p class="my-2 text-jusitfy">
+                                    @adv.Description
+                                </p>
+                                <p class="mb-1">
+                                    <strong>Q: </strong>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="h4 mb-3">Sample Item</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="h4 mb-3">Sample Item</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
-
-@code {
-
 }
+

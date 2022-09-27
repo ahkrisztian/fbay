@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using fbay.DTOs;
-using fbay.DTOs.AdvertismentDTOs;
 using fbay.Models;
 using fbay.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using fbayModels.DTOs.AdvertismentDTOs;
 
 namespace fbay.Controllers
 {
@@ -65,6 +64,19 @@ namespace fbay.Controllers
             }
 
             return Ok(_mapper.Map<ReadAdvertisementDTO>(advsById));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Advertisement>>> GetAllAdvs()
+        {
+            var alladvs = await _advertisementRepo.GetAllAdvs();
+
+            if(alladvs == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(_mapper.Map<IEnumerable<ReadAdvertisementDTO>>(alladvs));
         }
 
         [HttpPut("{id}")]

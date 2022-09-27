@@ -23,4 +23,8 @@
     <PackageReference Include="System.Runtime" Version="4.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\fbay.Models\fbayModels.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using fbay.DTOs.UserDTOs;
+using fbayModels.DTOs.UserDTOs;
 using fbay.Models;
 using fbay.Services;
 using Microsoft.AspNetCore.Http;

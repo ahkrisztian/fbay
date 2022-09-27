@@ -85,6 +85,16 @@ namespace fbay.Services
            
         }
 
+        public async Task<IEnumerable<Advertisement>> GetAllAdvs()
+        {
+            var advs = await _context.Advertisements
+                .Include(address => address.addressToTakes)
+                .Include(img => img.ImageUrls)
+                .Include(keys => keys.keywords).ToListAsync();
+
+            return advs;
+        }
+
         public async Task UpdateAdvertisement(Advertisement advertisement)
         {
             await _context.SaveChangesAsync();
