@@ -1,5 +1,6 @@
 ﻿using fbayModels.DTOs.AdvertismentDTOs;
 using Microsoft.AspNetCore.Components;
+using System.Collections.ObjectModel;
 using System.Net.Http.Json;
 
 namespace fbayBlazorUI.Pages
@@ -8,10 +9,29 @@ namespace fbayBlazorUI.Pages
     {
         [Inject]
         private HttpClient Http { get; set; }
+        CreateAdvertisementDTO advertismentToCreate { get; set; } = new CreateAdvertisementDTO();
 
-        protected override async Task OnInitializedAsync()
+        public TagDTO tagToCreate { get; set; } = new TagDTO();
+
+        public static ObservableCollection<TagDTO> tags { get; set; } = new ObservableCollection<TagDTO>();
+        protected async Task OnValidSubmit()
         {
-            await Http.GetFromJsonAsync<List<CreateAdvertisementDTO>>("/api/Advertisement/CreateAdvertisement");
+            advertismentToCreate.keywords.AddRange(tags);
+
+            await Http.PostAsJsonAsync("/api/Advertisement/CreateAdvertisement", advertismentToCreate);
+        }
+
+        private void AddToTagList()
+        {
+            if(tagToCreate != null)
+            {
+                tags.Add(new TagDTO { Title = tagToCreate.Title});
+            }
+        }
+
+        private void RemoveFromTagList(TagDTO tag)
+        {
+            tags.Remove(tag);
         }
     }
 }

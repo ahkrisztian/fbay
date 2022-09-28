@@ -1,7 +1,58 @@
 ﻿@page "/create"
-<PageTitle>Index</PageTitle>
 
 <h1>Create Advertisement</h1>
 
+<div>
+    <div>
+        <EditForm Model="@advertismentToCreate" OnValidSubmit="@OnValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+            <InputText id="title" @bind-Value="advertismentToCreate.Title" />
+
+            <InputText id="description" @bind-Value="advertismentToCreate.Description" />
+
+            <InputNumber id="userid" @bind-Value="advertismentToCreate.UserId" />
+
+            <button type="submit">Submit</button>
+        </EditForm>
+    </div>
+
+    <div>       
+        <div>            
+            @if(@tags != null && tags.Count != 3)
+            {
+                <div>
+                    <input placeholder="Keyword" @bind="tagToCreate.Title" />
+                    <button @onclick="AddToTagList">Add to Tags</button>
+                    @foreach (var tag in tags)
+                    {
+                        <p class="my-2 text-jusitfy">
+                            <label>@tag.Title</label>
+                        </p>
+                        <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                    }
+                </div>
+            }
+            else
+            {
+                <div>
+                    @foreach (var tag in tags)
+                    {
+                        <p class="my-2 text-jusitfy">
+                            <label>@tag.Title</label>
+                        </p>
+                        <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                    }
+                </div>
+
+            <p class="my-2 text-jusitfy">
+                <label>Max. 3 keywords</label>
+            </p>
+            }
+        </div>
+    </div>
+
+</div>
+
+
