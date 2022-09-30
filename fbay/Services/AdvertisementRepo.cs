@@ -45,10 +45,10 @@ namespace fbay.Services
             try
             {
                 return await _context.Advertisements
-                .Include(address => address.addressToTakes)
-                .Include(img => img.ImageUrls)
-                .Include(keys => keys.keywords)
-                .Where(adv => adv.Id == id).FirstOrDefaultAsync();
+                    .Include(adrs => adrs.addressToTakes)
+                    .Include(img => img.ImageUrls)
+                    .Include(keys => keys.keywords)
+                    .Where(adv => adv.Id == id).FirstOrDefaultAsync();
             }
             catch (Exception e )
             {
@@ -88,7 +88,7 @@ namespace fbay.Services
         public async Task<IEnumerable<Advertisement>> GetAllAdvs()
         {
             var advs = await _context.Advertisements
-                .Include(address => address.addressToTakes)
+                .Include(adrs => adrs.addressToTakes)
                 .Include(img => img.ImageUrls)
                 .Include(keys => keys.keywords).ToListAsync();
 

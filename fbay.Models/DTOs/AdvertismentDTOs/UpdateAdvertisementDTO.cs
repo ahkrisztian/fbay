@@ -11,7 +11,7 @@ namespace fbayModels.DTOs.AdvertismentDTOs
 
         public DateTime? DateUpdated { get; set; } = DateTime.Now;
 
-        public List<AddressToTakeDTO> addressToTakes { get; set; } = new List<AddressToTakeDTO>();
+        public AddressToTakeDTO addressToTakes { get; set; }
         public List<TagDTO> keywords { get; set; } = new List<TagDTO>();
         public List<ImageDTO> ImageUrls { get; set; } = new List<ImageDTO>();
     }

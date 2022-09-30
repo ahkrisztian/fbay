@@ -9,11 +9,14 @@ namespace fbayBlazorUI.Pages
     {
         [Inject]
         private HttpClient Http { get; set; }
-        CreateAdvertisementDTO advertismentToCreate { get; set; } = new CreateAdvertisementDTO();
+
+
+        private CreateAdvertisementDTO advertismentToCreate = new CreateAdvertisementDTO { addressToTakes = new List<AddressToTakeDTO> { new AddressToTakeDTO() } };
 
         public TagDTO tagToCreate { get; set; } = new TagDTO();
 
         public static ObservableCollection<TagDTO> tags { get; set; } = new ObservableCollection<TagDTO>();
+
         protected async Task OnValidSubmit()
         {
             advertismentToCreate.keywords.AddRange(tags);
