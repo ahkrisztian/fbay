@@ -14,6 +14,7 @@ namespace fbayModels.DTOs.AdvertismentDTOs
         public int UserId { get; set; }
 
         [Required]
+        [ValidateComplexType]
         public List<AddressToTakeDTO> addressToTakes { get; set; } = new List<AddressToTakeDTO>();
         [Required]
         public List<TagDTO> keywords { get; set; } = new List<TagDTO>();

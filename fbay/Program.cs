@@ -1,6 +1,7 @@
 using fbay.Data;
 using fbay.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,6 @@ builder.Services.AddCors(policy =>
 {
     policy.AddPolicy("OpenCorsPolicy", opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
-
 
 
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("name=ConnectionStrings:Default"));
@@ -33,6 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

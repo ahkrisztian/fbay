@@ -11,9 +11,12 @@ namespace fbayBlazorUI.Pages
 
         private List<ReadAdvertisementDTO> advertisements;
 
+        
+
         protected override async Task OnInitializedAsync()
         {
             advertisements = await Http.GetFromJsonAsync<List<ReadAdvertisementDTO>>("/api/Advertisement/GetAllAdvs");
         }
+       
     }
 }

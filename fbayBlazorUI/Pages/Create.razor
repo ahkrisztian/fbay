@@ -43,45 +43,59 @@
                 <InputText id="country" class="form-control" @bind-Value="advertismentToCreate.addressToTakes[0].Country" />
             </div>
 
-            <button type="submit">Submit</button>
+            <div class="row" style="margin-top: 10px">       
+                <div>  
+                    <label>Keywords:</label>
+                    @if(@tags != null && tags.Count != 3)
+                    {
+                        <div style="margin-top: 10px">
+                            <input placeholder="Keyword" @bind="tagToCreate.Title" />
+                            <button class="btn btn-secondary" style="margin-top: 10px" @onclick="AddToTagList">Add to Tags</button>
+                            @foreach (var tag in tags)
+                            {
+                                <p class="my-2 text-jusitfy">
+                                    <label>@tag.Title</label>
+                                </p>
+                                <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            @foreach (var tag in tags)
+                            {
+                                <p class="my-2 text-jusitfy">
+                                    <label>@tag.Title</label>
+                                </p>
+                                <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                            }
+                        </div>
+
+                    <p class="my-2 text-jusitfy">
+                        <label>Max. 3 keywords</label>
+                    </p>
+                    }
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="custom-file">
+                    <InputFile class="custom-file-input" multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif" id="inputFile" />
+                    <label class="custom-file-label" for="inputFile">Choose file</label>
+                </div>
+            </div>
+
+            @foreach (var item in filesBase64)
+            {
+                <img src="data:@item.Url;base64,@item.base64data" />
+            }
+
+            <button class="btn btn-success" style="margin-top: 10px" disabled="@isDisabled" type="submit">Submit</button>
         </EditForm>
-    </div>
 
-    <div class="row">       
-        <div>            
-            @if(@tags != null && tags.Count != 3)
-            {
-                <div>
-                    <input placeholder="Keyword" @bind="tagToCreate.Title" />
-                    <button @onclick="AddToTagList">Add to Tags</button>
-                    @foreach (var tag in tags)
-                    {
-                        <p class="my-2 text-jusitfy">
-                            <label>@tag.Title</label>
-                        </p>
-                        <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
-                    }
-                </div>
-            }
-            else
-            {
-                <div>
-                    @foreach (var tag in tags)
-                    {
-                        <p class="my-2 text-jusitfy">
-                            <label>@tag.Title</label>
-                        </p>
-                        <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
-                    }
-                </div>
-
-            <p class="my-2 text-jusitfy">
-                <label>Max. 3 keywords</label>
-            </p>
-            }
-        </div>
-    </div>
-
+        
+    </div>  
 </div>
 
 

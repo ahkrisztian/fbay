@@ -4,6 +4,10 @@ using fbay.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using fbayModels.DTOs.AdvertismentDTOs;
+using System.Net.Http.Headers;
+using System.Web.Http.Description;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace fbay.Controllers
 {
@@ -13,11 +17,13 @@ namespace fbay.Controllers
     {
         private readonly IAdvertisementRepo _advertisementRepo;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AdvertisementController(IAdvertisementRepo advertisementRepo, IMapper mapper)
+        public AdvertisementController(IAdvertisementRepo advertisementRepo, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _advertisementRepo = advertisementRepo;
             _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         //Create advertisement and retrun AdvReadDTO
@@ -92,6 +98,19 @@ namespace fbay.Controllers
             _mapper.Map(updateAdvertisementDTO, advFromRepo);
 
             await _advertisementRepo.UpdateAdvertisement(advFromRepo);
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Upload([FromBody] ImageDTO[] files)
+        {
+            foreach (var file in files)
+            {
+                var buf = Convert.FromBase64String(file.base64data);
+                await System.IO.File.WriteAllBytesAsync(_webHostEnvironment.ContentRootPath +"\\Uploads\\" + file.Name, buf);
+
+            }
 
             return NoContent();
         }
