@@ -96,7 +96,7 @@ namespace fbay.Services
             return advs;
         }
 
-        public async Task UpdateAdvertisement(Advertisement advertisement)
+        public async Task UpdateAdvertisement()
         {
             await _context.SaveChangesAsync();
         }

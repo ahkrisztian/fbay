@@ -1,9 +1,10 @@
 ﻿@page "/create"
+@inject NavigationManager NavManager
 
 <h1>Create Advertisement</h1>
 
-<div style="width: 500px;">
-    <div class="col-md-4">
+<div>
+    <div class="container">
         <EditForm Model="@advertismentToCreate" OnValidSubmit="@OnValidSubmit">
             <ObjectGraphDataAnnotationsValidator />
             <ValidationSummary />
@@ -42,59 +43,75 @@
                 <label>Country:</label>
                 <InputText id="country" class="form-control" @bind-Value="advertismentToCreate.addressToTakes[0].Country" />
             </div>
-
-            <div class="row" style="margin-top: 10px">       
-                <div>  
-                    <label>Keywords:</label>
+        
+            <div class="form-group" style="margin-top: 10px">
+                <label>Keywords:</label>
+                <div class="container" >                   
                     @if(@tags != null && tags.Count != 3)
                     {
-                        <div style="margin-top: 10px">
-                            <input placeholder="Keyword" @bind="tagToCreate.Title" />
-                            <button class="btn btn-secondary" style="margin-top: 10px" @onclick="AddToTagList">Add to Tags</button>
+                        <div style="margin-top: 10px" class="row justify-content-md-center">
+                            <input placeholder="Keyword" @bind="tagToCreate.TagTitle" />
+                            <button class="btn btn-secondary" type="button" style="margin-top: 10px" @onclick="AddToTagList">Add to Tags</button>
                             @foreach (var tag in tags)
                             {
-                                <p class="my-2 text-jusitfy">
-                                    <label>@tag.Title</label>
-                                </p>
-                                <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                                <div class="col col-lg-2">
+                                    <p class="my-2 text-jusitfy">
+                                        <label>@tag.TagTitle</label>
+                                    </p>
+                                    <button class="btn btn-danger" type="button" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                                </div>
                             }
                         </div>
                     }
                     else
                     {
-                        <div>
+                        <div class="row justify-content-md-center">
                             @foreach (var tag in tags)
                             {
-                                <p class="my-2 text-jusitfy">
-                                    <label>@tag.Title</label>
-                                </p>
-                                <button class="btn btn-danger" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                                <div class="col col-lg-2">
+                                    <p class="my-2 text-jusitfy">
+                                        <label>@tag.TagTitle</label>
+                                    </p>
+                                    <button class="btn btn-danger" type="button" @onclick="@(() => { RemoveFromTagList(tag); })">Remove</button>
+                                </div>
                             }
                         </div>
 
                     <p class="my-2 text-jusitfy">
-                        <label>Max. 3 keywords</label>
+                        <strong>Max. 3 keywords</strong>
                     </p>
                     }
                 </div>
             </div>
 
-            <div class="input-group">
-                <div class="custom-file">
-                    <InputFile class="custom-file-input" multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif" id="inputFile" />
-                    <label class="custom-file-label" for="inputFile">Choose file</label>
-                </div>
+            <div class="position-static" style="height: 50px">
+                @if(filesBase64.Count != 3)
+                {
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="custom-file">
+                            <InputFile class="custom-file-input" multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif" id="inputFile" />
+                            <label class="custom-file-label" for="inputFile">Choose file</label>
+                        </div>
+                    </div>
+                }
             </div>
 
-            @foreach (var item in filesBase64)
-            {
-                <img src="data:@item.Url;base64,@item.base64data" />
-            }
+            <div class="row" style="height: 250px; margin-top: 10px">
+                @foreach (var img in filesBase64)
+                {
+                    <div class="col col-lg-2" style="width: 250px; height: 250px; text-align: center">
+                        <img class="rounded float-left" src="data:@img.Url;base64,@img.base64data" width="75%" height="75%">
+                        <button class="btn btn-danger" type="button" @onclick="@(() => { RemoveFromImages(img); })">Remove</button>
+                    </div>
+                }
+            </div>
 
-            <button class="btn btn-success" style="margin-top: 10px" disabled="@isDisabled" type="submit">Submit</button>
+            <div style="width: 300px">
+                <button class="btn btn-success btn-lg btn-block" style="margin-top: 10px" type="submit" href="advertisements">
+                    Submit
+                </button>
+            </div>
         </EditForm>
-
-        
     </div>  
 </div>
 

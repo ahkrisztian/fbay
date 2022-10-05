@@ -97,11 +97,13 @@ namespace fbay.Controllers
 
             _mapper.Map(updateAdvertisementDTO, advFromRepo);
 
-            await _advertisementRepo.UpdateAdvertisement(advFromRepo);
+            await _advertisementRepo.UpdateAdvertisement();
 
             return NoContent();
         }
 
+
+        //Upload images
         [HttpPost]
         public async Task<ActionResult> Upload([FromBody] ImageDTO[] files)
         {
@@ -114,5 +116,6 @@ namespace fbay.Controllers
 
             return NoContent();
         }
+
     }
 }

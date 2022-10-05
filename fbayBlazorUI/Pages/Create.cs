@@ -18,31 +18,44 @@ namespace fbayBlazorUI.Pages
 
         public TagDTO tagToCreate { get; set; } = new TagDTO();
 
-        public static ObservableCollection<TagDTO> tags { get; set; } = new ObservableCollection<TagDTO>();
+        public ObservableCollection<TagDTO> tags { get; set; } = new ObservableCollection<TagDTO>();
 
-        List<ImageDTO> filesBase64 = new List<ImageDTO>();
+        public ObservableCollection<ImageDTO> filesBase64 = new ObservableCollection<ImageDTO>();
 
         string message = "InputFile";
 
         bool isDisabled = false;
+     
         protected async Task OnValidSubmit()
         {
-            advertismentToCreate.keywords.AddRange(tags);
+            advertismentToCreate.keywords.AddRange(tags.ToList());
 
-            advertismentToCreate.ImageUrls.AddRange(filesBase64);
+            advertismentToCreate.ImageUrls.AddRange(filesBase64.ToList());
 
             await Upload();
 
-            await Http.PostAsJsonAsync("/api/Advertisement/CreateAdvertisement", advertismentToCreate);
+            using(var msg = await Http.PostAsJsonAsync("/api/Advertisement/CreateAdvertisement", advertismentToCreate))
+            {
+                isDisabled = false;
+
+                if (msg.IsSuccessStatusCode)
+                {
+                    message = $"{advertismentToCreate.Title} files uploaded";
+                }
+
+                message = "Error";
+            }
 
             filesBase64.Clear();
+
+            NavManager.NavigateTo("/");
         }
 
         private void AddToTagList()
         {
             if(tagToCreate != null)
             {
-                tags.Add(new TagDTO { Title = tagToCreate.Title});
+                tags.Add(new TagDTO { TagTitle = tagToCreate.TagTitle});
             }
         }
 
@@ -51,12 +64,19 @@ namespace fbayBlazorUI.Pages
             tags.Remove(tag);
         }
 
+        private void RemoveFromImages(ImageDTO img)
+        {
+            filesBase64.Remove(img);
+        }
+
         private async Task OnChange(InputFileChangeEventArgs e)
         {
             var files = e.GetMultipleFiles(); // get the files selected by the users
+
             foreach (var file in files)
             {
                 var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
+
                 var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
                 using (var stream = resizedFile.OpenReadStream())
                 {
@@ -70,7 +90,7 @@ namespace fbayBlazorUI.Pages
         {
             isDisabled = true;
 
-            using (var msg = await Http.PostAsJsonAsync<List<ImageDTO>>("/api/Advertisement/Upload", filesBase64, CancellationToken.None))
+            using (var msg = await Http.PostAsJsonAsync<List<ImageDTO>>("/api/Advertisement/Upload", filesBase64.ToList(), CancellationToken.None))
             {
                 isDisabled = false;
 

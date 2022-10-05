@@ -1,5 +1,6 @@
 ﻿@page "/"
 @page "/advertisements"
+@inject NavigationManager NavManager
 
 <h3>Advertisements</h3>
 
@@ -52,12 +53,13 @@ else
                                 @foreach (var tag in adv.keywords)
                                 {
                                     <div style="margin-right: 10px">
-                                        <p class="my-2 text-jusitfy">#@tag.Title</p>
+                                        <p class="my-2 text-jusitfy">#@tag.TagTitle</p>
                                     </div>
                                 }
                             </div>
                         </div>
                     </div>
+                    <button @onclick="@(() => { Navigate(adv.Id); })">Edit</button>
                 </div>
             }
         </div>

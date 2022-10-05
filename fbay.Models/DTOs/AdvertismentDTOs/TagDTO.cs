@@ -1,7 +1,10 @@
-﻿namespace fbayModels.DTOs.AdvertismentDTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace fbayModels.DTOs.AdvertismentDTOs
 {
     public class TagDTO
     {
-        public string Title { get; set; }
+        [Required]
+        public string TagTitle { get; set; }
     }
 }

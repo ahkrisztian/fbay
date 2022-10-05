@@ -2,6 +2,6 @@
 {
     public class TagDTO
     {
-        public string Title { get; set; }
+        public string TagTitle { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace fbay.Services
 
         Task<IEnumerable<Advertisement>> GetAdvertisementByUserrId(int id);
         Task CreateAdvertisement(Advertisement advertisement);
-        Task UpdateAdvertisement(Advertisement advertisement);
+        Task UpdateAdvertisement();
         Task DeleteAdvertisement(Advertisement advertisement);
     }
 }
