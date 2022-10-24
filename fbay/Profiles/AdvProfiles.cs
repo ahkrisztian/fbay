@@ -18,8 +18,7 @@ namespace fbay.Profiles
             CreateMap<Advertisement, ReadAdvertisementDTO>();
             CreateMap<Advertisement, UpdateAdvertisementDTO>();
             CreateMap<UpdateAdvertisementDTO, Advertisement>();
-            CreateMap<ReadAdvertisementDTO, Advertisement>();
-            
+            CreateMap<ReadAdvertisementDTO, Advertisement>();         
         }
     }
 }
