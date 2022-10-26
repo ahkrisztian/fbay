@@ -1,6 +1,7 @@
 ﻿@page "/"
 @page "/advertisements"
 @inject NavigationManager NavManager
+@inject IJSRuntime JSRuntime
 
 <h3>Advertisements</h3>
 
@@ -59,7 +60,8 @@ else
                             </div>
                         </div>
                     </div>
-                    <button @onclick="@(() => { Navigate(adv.Id); })">Edit</button>
+                    <button @onclick="@(async () => await Navigate(adv.Id))">Edit</button>
+                    <button @onclick="@(async () => await DeleteAdv(adv.Id))">Delete</button>
                 </div>
             }
         </div>

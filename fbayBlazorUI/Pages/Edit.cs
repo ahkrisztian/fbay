@@ -15,6 +15,7 @@ namespace fbayBlazorUI.Pages
         private HttpClient Http { get; set; }
 
         private UpdateAdvertisementDTO advertisement = new UpdateAdvertisementDTO { addressToTakes = new List<AddressToTakeDTO> { new AddressToTakeDTO() } };
+
         public TagDTO tagToCreate { get; set; } = new TagDTO();
 
         public ObservableCollection<TagDTO> tags { get; set; } = new ObservableCollection<TagDTO>();
@@ -40,6 +41,8 @@ namespace fbayBlazorUI.Pages
 
         protected async Task OnValidSubmit()
         {
+
+            //Clear the Keywords, Image Urls and add a new Range of Keywords and Image Urls
             advertisement.keywords.Clear();
             advertisement.ImageUrls.Clear();
 
@@ -49,6 +52,8 @@ namespace fbayBlazorUI.Pages
 
             await Upload();
 
+
+            //Convert the Advertisment object to json and Update in database
             string output = JsonConvert.SerializeObject(advertisement);
 
             StringContent content = new StringContent(output, Encoding.UTF8, "application/json");

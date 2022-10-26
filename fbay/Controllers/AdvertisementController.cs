@@ -117,5 +117,19 @@ namespace fbay.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAdv(int id)
+        {
+            var advFromRepo = _advertisementRepo.GetAdvertisementById(id);
+
+            if(advFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            await _advertisementRepo.DeleteAdvertisement(advFromRepo.Result);
+
+            return NoContent();
+        }
     }
 }
