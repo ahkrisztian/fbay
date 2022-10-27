@@ -66,7 +66,7 @@ namespace fbay.Controllers
 
             if (advsById == null)
             {
-                return NoContent();
+                return NotFound();
             }
 
             return Ok(_mapper.Map<ReadAdvertisementDTO>(advsById));
@@ -79,7 +79,7 @@ namespace fbay.Controllers
 
             if(alladvs == null)
             {
-                return NoContent();
+                return NotFound();
             }
 
             return Ok(_mapper.Map<IEnumerable<ReadAdvertisementDTO>>(alladvs));
