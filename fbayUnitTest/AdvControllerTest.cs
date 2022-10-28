@@ -198,6 +198,398 @@ namespace fbayUnitTest
             Assert.IsType<ReadAdvertisementDTO>(model.Value);
         }
 
+        [Fact]
+        public void CreateAdvertisement_ReturnCorrectType()
+        {
+            //Arrange
+            _repo.Setup(repo =>
+                repo.GetAdvertisementById(1).Result).Returns(new Advertisement
+                {
+                    Id = 1,
+                    Title = "Soda",
+                    Description = "Cold with bubbles",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    UserId = 1,
+                    addressToTakes = new List<AddressToTake>
+                {
+                    new AddressToTake
+                    {
+                        Id = 1,
+                        AddressLine1 = "Bob Str. 1",
+                        City = "Budapest",
+                        Country = "Hungary",
+                        ZipCode = "1000",
+                        AdvertisementId = 1
+                    }
+                },
+                    keywords = new List<Tag>
+                {
+                    new Tag
+                    {
+                        Id = 1,
+                        TagTitle = "Cold",
+                        AdvertisementId = 1
+                    },
+                    new Tag
+                    {
+
+                        Id = 2,
+                        TagTitle = "Bubbles",
+                        AdvertisementId = 1
+                    }
+
+                },
+
+                    ImageUrls = new List<Image>
+                {
+                    new Image
+                    {
+                        Id = 1,
+                        AdvertisementId = 1,
+                        base64data = "",
+                        Url = "",
+                        Name = "Image1"
+                    }
+                }
+                });
+
+            var controller = new AdvertisementController(_repo.Object, _mapper, null);
+            
+            //Act
+            var result = controller.CreateAdvertisement(new CreateAdvertisementDTO { });
+
+            var model = result.Result as CreatedAtRouteResult;
+            //Assert
+            Assert.IsType<ReadAdvertisementDTO>(model.Value);
+        }
+
+        [Fact]
+        public void CreateAdvertisement_Returns201Created()
+        {
+            //Arrange
+            _repo.Setup(repo =>
+                repo.GetAdvertisementById(1).Result).Returns(new Advertisement
+                {
+                    Id = 1,
+                    Title = "Soda",
+                    Description = "Cold with bubbles",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    UserId = 1,
+                    addressToTakes = new List<AddressToTake>
+                {
+                    new AddressToTake
+                    {
+                        Id = 1,
+                        AddressLine1 = "Bob Str. 1",
+                        City = "Budapest",
+                        Country = "Hungary",
+                        ZipCode = "1000",
+                        AdvertisementId = 1
+                    }
+                },
+                    keywords = new List<Tag>
+                {
+                    new Tag
+                    {
+                        Id = 1,
+                        TagTitle = "Cold",
+                        AdvertisementId = 1
+                    },
+                    new Tag
+                    {
+
+                        Id = 2,
+                        TagTitle = "Bubbles",
+                        AdvertisementId = 1
+                    }
+
+                },
+
+                    ImageUrls = new List<Image>
+                {
+                    new Image
+                    {
+                        Id = 1,
+                        AdvertisementId = 1,
+                        base64data = "",
+                        Url = "",
+                        Name = "Image1"
+                    }
+                }
+                });
+
+            var controller = new AdvertisementController(_repo.Object, _mapper, null);
+
+            //Act
+            var result = controller.CreateAdvertisement(new CreateAdvertisementDTO { });
+            //Assert
+            Assert.IsType<CreatedAtRouteResult>(result.Result);
+        }
+
+        [Fact]
+        public void UpdateAdvertisement_Retruns204NoContent()
+        {
+            //Arrange
+            _repo.Setup(repo =>
+                repo.GetAdvertisementById(1).Result).Returns(new Advertisement
+                {
+                    Id = 1,
+                    Title = "Soda",
+                    Description = "Cold with bubbles",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    UserId = 1,
+                    addressToTakes = new List<AddressToTake>
+                {
+                    new AddressToTake
+                    {
+                        Id = 1,
+                        AddressLine1 = "Bob Str. 1",
+                        City = "Budapest",
+                        Country = "Hungary",
+                        ZipCode = "1000",
+                        AdvertisementId = 1
+                    }
+                },
+                    keywords = new List<Tag>
+                {
+                    new Tag
+                    {
+                        Id = 1,
+                        TagTitle = "Cold",
+                        AdvertisementId = 1
+                    },
+                    new Tag
+                    {
+
+                        Id = 2,
+                        TagTitle = "Bubbles",
+                        AdvertisementId = 1
+                    }
+
+                },
+
+                    ImageUrls = new List<Image>
+                {
+                    new Image
+                    {
+                        Id = 1,
+                        AdvertisementId = 1,
+                        base64data = "",
+                        Url = "",
+                        Name = "Image1"
+                    }
+                }
+                });
+
+            var controller = new AdvertisementController(_repo.Object, _mapper, null);
+
+            //Act
+            var result = controller.UpdateAdvertisement(1, new UpdateAdvertisementDTO { });
+
+            //Assert
+            Assert.IsType<NoContentResult>(result.Result);
+        }
+
+        [Fact]
+        public void UpdateAdvertisement_Retruns404NotFound()
+        {
+            //Arrange
+            _repo.Setup(repo =>
+                repo.GetAdvertisementById(1).Result).Returns(new Advertisement
+                {
+                    Id = 1,
+                    Title = "Soda",
+                    Description = "Cold with bubbles",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    UserId = 1,
+                    addressToTakes = new List<AddressToTake>
+                {
+                    new AddressToTake
+                    {
+                        Id = 1,
+                        AddressLine1 = "Bob Str. 1",
+                        City = "Budapest",
+                        Country = "Hungary",
+                        ZipCode = "1000",
+                        AdvertisementId = 1
+                    }
+                },
+                    keywords = new List<Tag>
+                {
+                    new Tag
+                    {
+                        Id = 1,
+                        TagTitle = "Cold",
+                        AdvertisementId = 1
+                    },
+                    new Tag
+                    {
+
+                        Id = 2,
+                        TagTitle = "Bubbles",
+                        AdvertisementId = 1
+                    }
+
+                },
+
+                    ImageUrls = new List<Image>
+                {
+                    new Image
+                    {
+                        Id = 1,
+                        AdvertisementId = 1,
+                        base64data = "",
+                        Url = "",
+                        Name = "Image1"
+                    }
+                }
+                });
+
+            var controller = new AdvertisementController(_repo.Object, _mapper, null);
+
+            //Act
+            var result = controller.UpdateAdvertisement(0, new UpdateAdvertisementDTO { });
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
+
+        [Fact]
+        public void DeleteAdvertisment_Retruns204NoContent()
+        {
+            //Arrange
+            _repo.Setup(repo =>
+                repo.GetAdvertisementById(1).Result).Returns(new Advertisement
+                {
+                    Id = 1,
+                    Title = "Soda",
+                    Description = "Cold with bubbles",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    UserId = 1,
+                    addressToTakes = new List<AddressToTake>
+                {
+                    new AddressToTake
+                    {
+                        Id = 1,
+                        AddressLine1 = "Bob Str. 1",
+                        City = "Budapest",
+                        Country = "Hungary",
+                        ZipCode = "1000",
+                        AdvertisementId = 1
+                    }
+                },
+                    keywords = new List<Tag>
+                {
+                    new Tag
+                    {
+                        Id = 1,
+                        TagTitle = "Cold",
+                        AdvertisementId = 1
+                    },
+                    new Tag
+                    {
+
+                        Id = 2,
+                        TagTitle = "Bubbles",
+                        AdvertisementId = 1
+                    }
+
+                },
+
+                    ImageUrls = new List<Image>
+                {
+                    new Image
+                    {
+                        Id = 1,
+                        AdvertisementId = 1,
+                        base64data = "",
+                        Url = "",
+                        Name = "Image1"
+                    }
+                }
+                });
+
+            var controller = new AdvertisementController(_repo.Object, _mapper, null);
+
+            //Act
+
+            var result = controller.DeleteAdv(1);
+
+            //Assert
+            Assert.IsType<NoContentResult>(result.Result);
+        }
+
+        [Fact]
+        public void DeleteAdvertisment_Retruns404NotFound()
+        {
+            //Arrange
+            _repo.Setup(repo =>
+                repo.GetAdvertisementById(1).Result).Returns(new Advertisement
+                {
+                    Id = 1,
+                    Title = "Soda",
+                    Description = "Cold with bubbles",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    UserId = 1,
+                    addressToTakes = new List<AddressToTake>
+                {
+                    new AddressToTake
+                    {
+                        Id = 1,
+                        AddressLine1 = "Bob Str. 1",
+                        City = "Budapest",
+                        Country = "Hungary",
+                        ZipCode = "1000",
+                        AdvertisementId = 1
+                    }
+                },
+                    keywords = new List<Tag>
+                {
+                    new Tag
+                    {
+                        Id = 1,
+                        TagTitle = "Cold",
+                        AdvertisementId = 1
+                    },
+                    new Tag
+                    {
+
+                        Id = 2,
+                        TagTitle = "Bubbles",
+                        AdvertisementId = 1
+                    }
+
+                },
+
+                    ImageUrls = new List<Image>
+                {
+                    new Image
+                    {
+                        Id = 1,
+                        AdvertisementId = 1,
+                        base64data = "",
+                        Url = "",
+                        Name = "Image1"
+                    }
+                }
+                });
+
+            var controller = new AdvertisementController(_repo.Object, _mapper, null);
+
+            //Act
+
+            var result = controller.DeleteAdv(0);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
+
         private List<Advertisement> GetAdvertisements(int num)
         {
             var advs = new List<Advertisement>();

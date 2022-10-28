@@ -122,7 +122,7 @@ namespace fbay.Controllers
         {
             var advFromRepo = _advertisementRepo.GetAdvertisementById(id);
 
-            if(advFromRepo == null)
+            if(advFromRepo.Result == null)
             {
                 return NotFound();
             }
