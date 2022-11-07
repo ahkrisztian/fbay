@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fbayBlazorUI", "fbayBlazorU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fbayModels", "fbay.Models\fbayModels.csproj", "{0087F187-E9A4-4E11-B93F-B6D83EBF53F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fbayUnitTest", "fbayUnitTest\fbayUnitTest.csproj", "{A6AEA403-CB2B-4E33-A66A-BD963CAA2735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fbayUnitTest", "fbayUnitTest\fbayUnitTest.csproj", "{A6AEA403-CB2B-4E33-A66A-BD963CAA2735}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,6 +3,11 @@
 
 <h1>Create Advertisement</h1>
 
+<Alert @bind-Show="ShowAlert">
+    <span class="oi oi-check mr-2" aria-hidden="true"></span>
+    <strong>Keyword added!</strong>
+</Alert>
+
 <div>
     <div class="container">
         <EditForm Model="@advertismentToCreate" OnValidSubmit="@OnValidSubmit">
@@ -51,7 +56,8 @@
                     {
                         <div style="margin-top: 10px" class="row justify-content-md-center">
                             <input placeholder="Keyword" @bind="tagToCreate.TagTitle" />
-                            <button class="btn btn-secondary" type="button" style="margin-top: 10px" @onclick="AddToTagList">Add to Tags</button>
+                            <button class="btn btn-secondary" type="button" style="margin-top: 10px" @onclick="@(() => {AddToTagList(); ToggleAlert(); })">Add to Tags</button>
+                            <Timer TimeInSeconds="5" Tick="@(() => {DissmissAlert();})" />
                             @foreach (var tag in tags)
                             {
                                 <div class="col col-lg-2">

@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using fbay.Models;
 using fbay.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using fbayModels.DTOs.AdvertismentDTOs;
-using System.Net.Http.Headers;
-using System.Web.Http.Description;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 
 namespace fbay.Controllers
 {
@@ -39,14 +34,12 @@ namespace fbay.Controllers
             return CreatedAtRoute(nameof(GetAdvById),
                 new { Id = advReadDTO.Id }, advReadDTO);
 
-            //return Ok(advReadDTO);
-
         }
 
 
         //Returns all advertisements from User
         [HttpGet("{id}", Name = "GetAdvsByUserId")]
-        public async Task<ActionResult<IEnumerable<Advertisement>>> GetAdvsByUserId(int id)
+        public async Task<ActionResult> GetAdvsByUserId(int id)
         {
             var advsById= await _advertisementRepo.GetAdvertisementByUserrId(id);
 

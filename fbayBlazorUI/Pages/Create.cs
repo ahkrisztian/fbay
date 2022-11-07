@@ -22,10 +22,23 @@ namespace fbayBlazorUI.Pages
 
         public ObservableCollection<ImageDTO> filesBase64 = new ObservableCollection<ImageDTO>();
 
+        private bool showAlert = false;
+        public bool ShowAlert 
+        { get => showAlert;
+          set
+            {
+                if(value != showAlert)
+                {
+                    showAlert = value;
+                    StateHasChanged();
+                }
+            }
+        }
+
         string message = "InputFile";
 
         bool isDisabled = false;
-     
+
         protected async Task OnValidSubmit()
         {
             advertismentToCreate.keywords.AddRange(tags.ToList());
@@ -34,7 +47,7 @@ namespace fbayBlazorUI.Pages
 
             await Upload();
 
-            using(var msg = await Http.PostAsJsonAsync("/api/Advertisement/CreateAdvertisement", advertismentToCreate))
+            using (var msg = await Http.PostAsJsonAsync("/api/Advertisement/CreateAdvertisement", advertismentToCreate))
             {
                 isDisabled = false;
 
@@ -50,6 +63,10 @@ namespace fbayBlazorUI.Pages
 
             NavManager.NavigateTo("/");
         }
+
+        public void ToggleAlert() => ShowAlert = true;
+        public void DissmissAlert() => ShowAlert = false;
+
 
         private void AddToTagList()
         {
